@@ -1,0 +1,32 @@
+.cell-list-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.cell-list-item .code-container .menu-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #37414b;
+  width: 100%;
+  flex: 1;
+}
+
+.cell-list-item .code-container .menu-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.cell-list-item .text-container .menu-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.3;
+  z-index: 20;
+}
+
+.cell-list-item .text-container .menu-buttons:hover {
+  opacity: 1;
+}

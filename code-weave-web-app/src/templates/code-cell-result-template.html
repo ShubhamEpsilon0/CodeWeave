@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <body>
+    <div id="root"></div>
+    <script>
+      const handleError = (error) => {
+        console.error("Error executing bundled code:", error);
+        document.getElementById("root").innerHTML =
+          `<h4  style="color: red;">Error executing bundled code:</h4><pre style="color: red;">${error}</pre>`;
+      };
+      window.addEventListener(
+        "message",
+        (event) => {
+          try {
+            console.log("Received code to execute:", event.data, document);
+            eval(event.data);
+          } catch (error) {
+            handleError(error);
+          }
+        },
+        { once: true }
+      );
+
+      window.addEventListener(
+        "error",
+        (event) => {
+          event.preventDefault();
+          handleError(event.error || event.message);
+        },
+        { once: true }
+      );
+    </script>
+  </body>
+</html>
