@@ -1,0 +1,24 @@
+{
+  "name": "code-weave-local-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "tsc --watch --preserveWatchOutput",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.3.0",
+    "express": "^5.2.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "code-weave-web-app": "^0.0.0",
+    "http-proxy-middleware": "^3.0.5"
+  }
+}

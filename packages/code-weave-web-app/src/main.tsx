@@ -7,15 +7,14 @@ import process from "process";
 
 import { store } from "@/state/store";
 import { Provider } from "react-redux";
+import App from "@/components/App";
 
-import TestUI from "@/components/testUI";
-
-const App = () => {
+const MainRC = () => {
   return (
     <Provider store={store}>
-      <TestUI />
+      <App />
     </Provider>
   );
 };
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<MainRC />);

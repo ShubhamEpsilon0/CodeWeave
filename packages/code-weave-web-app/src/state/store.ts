@@ -3,11 +3,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import CellsReducer from "./slices/CellsSlice";
 import BundleReducer from "./slices/BundleSlice";
 
+import { postCellMiddleware } from "./middlewares/postCellMiddleware";
+
 export const store = configureStore({
   reducer: {
     cells: CellsReducer,
     bundle: BundleReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([postCellMiddleware]),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

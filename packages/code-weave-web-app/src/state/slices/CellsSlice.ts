@@ -11,6 +11,8 @@ import type {
 } from "../types";
 import type { Cell, CellType } from "@/constants/types";
 
+import { fetchCellsThunk } from "../thunks/fetchCellsThunk";
+
 const initialState: CellsState = {
   loading: false,
   error: null,
@@ -108,6 +110,28 @@ export const cellsSlice = createSlice({
         cell.excluded = !cell.excluded;
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCellsThunk.pending, (draftState) => {
+      draftState.loading = true;
+      draftState.error = null;
+    });
+    builder.addCase(fetchCellsThunk.fulfilled, (draftState, action) => {
+      draftState.loading = false;
+      const cells = action.payload;
+      console.log("Fetched cells:", cells);
+      draftState.cells = {};
+      draftState.cellOrder = [];
+
+      cells.forEach((cell) => {
+        draftState.cells[cell.id] = cell;
+        draftState.cellOrder.push(cell.id);
+      });
+    });
+    builder.addCase(fetchCellsThunk.rejected, (draftState, action) => {
+      draftState.loading = false;
+      draftState.error = action.payload as string;
+    });
   },
 });
 

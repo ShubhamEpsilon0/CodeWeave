@@ -1,4 +1,4 @@
-import { bindActionCreators, createAsyncThunk } from "@reduxjs/toolkit";
+import { bindActionCreators } from "@reduxjs/toolkit";
 import {
   addCell,
   moveCell,
@@ -7,11 +7,11 @@ import {
   toggleCumulativeExecution,
 } from "../slices/CellsSlice";
 
-import { bundleComplete, bundleStart } from "../slices/BundleSlice";
-
 import { useAppDispatch } from "./typedHooks";
 import type { CellType } from "@/constants/types";
-import { bundleCode } from "@/bundle/bundler";
+
+import { createBundleThunk } from "../thunks/createBundleThunk";
+import { fetchCellsThunk } from "../thunks/fetchCellsThunk";
 
 export const useCellActions = () => {
   const dispatch = useAppDispatch();
@@ -26,39 +26,21 @@ export const useCellActions = () => {
         moveCell({ cellId, direction }),
       toggleCumulativeExecution: (cellId: string) =>
         toggleCumulativeExecution({ cellId }),
+      fetchCells: () => {
+        console.log("Dispatching fetchCells action...");
+        return fetchCellsThunk();
+      },
     },
     dispatch
   );
 };
-
-const createBundle = createAsyncThunk(
-  "bundle/createBundle",
-  async (
-    { cellId, inputCode }: { cellId: string; inputCode: string },
-    { dispatch }
-  ) => {
-    dispatch(bundleStart({ cellId }));
-
-    const bundleResult = await bundleCode(inputCode);
-    console.log("Bundle result:", bundleResult);
-    dispatch(
-      bundleComplete({
-        cellId,
-        bundle: {
-          code: bundleResult.code,
-          error: bundleResult.err,
-        },
-      })
-    );
-  }
-);
 
 export const useBundleActions = () => {
   const dispatch = useAppDispatch();
   return bindActionCreators(
     {
       createBundle: (cellId: string, inputCode: string) =>
-        createBundle({ cellId, inputCode }),
+        createBundleThunk({ cellId, inputCode }),
     },
     dispatch
   );

@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import { initializeBundler } from "@/bundle/bundler";
 import CellList from "./CellList";
+import { useCellActions } from "@/state/hooks/ActionHooks";
 
-const TestUI: React.FC = () => {
+const App: React.FC = () => {
+  const { fetchCells } = useCellActions();
   const [esbuildInitialized, setESbuildInitialized] = useState(false);
 
   const initialize = async () => {
     if (esbuildInitialized) return;
 
     initializeBundler();
+    fetchCells();
     setESbuildInitialized(true);
   };
 
@@ -20,4 +23,4 @@ const TestUI: React.FC = () => {
   return <>{esbuildInitialized && <CellList />}</>;
 };
 
-export default TestUI;
+export default App;

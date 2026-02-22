@@ -4,9 +4,9 @@ import "./syntax.css";
 import React, { useRef } from "react";
 
 import MonacoEditor from "@monaco-editor/react";
-import prettier from "prettier/standalone";
-import parser from "prettier/plugins/babel";
-import estree from "prettier/plugins/estree";
+import prettier from "prettier/standalone.js";
+import parser from "prettier/plugins/babel.js";
+import estree from "prettier/plugins/estree.js";
 
 // import * as Babel from "@babel/standalone";
 import { parse } from "@babel/parser";
