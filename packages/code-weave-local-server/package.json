@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "code-weave-web-app": "^0.0.0",
-    "http-proxy-middleware": "^3.0.5"
+    "http-proxy-middleware": "^3.0.5",
+    "yup": "^1.7.1"
   }
 }
