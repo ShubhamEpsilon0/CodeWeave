@@ -1,5 +1,10 @@
 import type { Cell, CellMoveDirection, CellType } from "@/constants/types";
 
+export interface AppState {
+  initialized: boolean;
+  error: string | null;
+}
+
 export interface CellsState {
   loading: boolean;
   error: string | null;
@@ -15,6 +20,12 @@ export interface BundleState {
         error: string | null;
       }
     | undefined;
+}
+
+export interface BundlerState {
+  initialized: boolean;
+  error: string | null;
+  bundles: BundleState;
 }
 
 export interface AddCellActionPayload {

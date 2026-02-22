@@ -12,6 +12,7 @@ import type { CellType } from "@/constants/types";
 
 import { createBundleThunk } from "../thunks/createBundleThunk";
 import { fetchCellsThunk } from "../thunks/fetchCellsThunk";
+import { initializeAppThunk } from "../thunks/initializeAppThunk";
 
 export const useCellActions = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,18 @@ export const useBundleActions = () => {
     {
       createBundle: (cellId: string, inputCode: string) =>
         createBundleThunk({ cellId, inputCode }),
+    },
+    dispatch
+  );
+};
+
+export const useAppActions = () => {
+  const dispatch = useAppDispatch();
+  return bindActionCreators(
+    {
+      initializeApp: () => {
+        return initializeAppThunk();
+      },
     },
     dispatch
   );

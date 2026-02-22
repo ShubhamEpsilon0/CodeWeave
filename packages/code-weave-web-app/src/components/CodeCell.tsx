@@ -25,7 +25,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const { updateCell } = useCellActions();
   const { createBundle } = useBundleActions();
   const cells = useAppSelector((state) => state.cells);
-  const bundle = useAppSelector((state) => state.bundle[cell.id]);
+  const bundle = useAppSelector((state) => state.bundler.bundles[cell.id]);
 
   const getCumulativeCode = (
     cells: Record<string, Cell>,
@@ -54,12 +54,12 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   };
 
   useEffect(() => {
+    const cumulativeCode = getCumulativeCode(cells.cells, cells.cellOrder);
+
     if (!bundle) {
-      createBundle(cell.id, cell.content);
+      createBundle(cell.id, cumulativeCode);
       return;
     }
-
-    const cumulativeCode = getCumulativeCode(cells.cells, cells.cellOrder);
 
     const timer = setTimeout(() => {
       createBundle(cell.id, cumulativeCode);

@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import { initializeBundler } from "@/bundle/bundler";
 import CellList from "./CellList";
-import { useCellActions } from "@/state/hooks/ActionHooks";
+import { useAppActions } from "@/state/hooks/ActionHooks";
+import { useAppSelector } from "@/state/hooks/typedHooks";
 
 const App: React.FC = () => {
-  const { fetchCells } = useCellActions();
-  const [esbuildInitialized, setESbuildInitialized] = useState(false);
-
-  const initialize = async () => {
-    if (esbuildInitialized) return;
-
-    initializeBundler();
-    fetchCells();
-    setESbuildInitialized(true);
-  };
+  const { initializeApp } = useAppActions();
+  const appInitialized = useAppSelector((state) => state.app.initialized);
 
   useEffect(() => {
-    initialize();
+    initializeApp();
   }, []);
 
-  return <>{esbuildInitialized && <CellList />}</>;
+  return <>{appInitialized && <CellList />}</>;
 };
 
 export default App;

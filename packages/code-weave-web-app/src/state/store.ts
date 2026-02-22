@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import CellsReducer from "./slices/CellsSlice";
 import BundleReducer from "./slices/BundleSlice";
+import AppReducer from "./slices/AppSlice";
 
 import { postCellMiddleware } from "./middlewares/postCellMiddleware";
 
 export const store = configureStore({
   reducer: {
+    app: AppReducer,
     cells: CellsReducer,
-    bundle: BundleReducer,
+    bundler: BundleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([postCellMiddleware]),
