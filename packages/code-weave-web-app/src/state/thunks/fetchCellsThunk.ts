@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import axios from "axios";
-
 import type { Cell } from "@/constants/types";
+
+import { fetchCells } from "@/remote/APIs";
 
 export const fetchCellsThunk = createAsyncThunk<
   Cell[], // Return type
@@ -10,10 +10,8 @@ export const fetchCellsThunk = createAsyncThunk<
   { rejectValue: string }
 >("cells/fetchCells", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get<{ cells: string }>("/api/cells");
-
-    return JSON.parse(data.cells) as Cell[];
-  } catch {
+    return await fetchCells();
+  } catch (err) {
     return rejectWithValue("Failed to fetch cells");
   }
 });

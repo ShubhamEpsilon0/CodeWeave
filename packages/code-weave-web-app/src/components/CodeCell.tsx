@@ -12,6 +12,7 @@ import { useBundleActions, useCellActions } from "@/state/hooks/ActionHooks";
 import { useAppSelector } from "@/state/hooks/typedHooks";
 
 import { extractDefinitions } from "@/bundle/bundler";
+import LoadingIndicator from "./LoadingIndicator";
 
 interface CodeCellProps {
   cell: Cell;
@@ -85,11 +86,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
           {bundle && !bundle.loading ? (
             <Preview code={bundle.code} err={bundle.error || ""} />
           ) : (
-            <div className="progress-cover">
-              <progress className="progress is-small is-primary">
-                Loading
-              </progress>
-            </div>
+            <LoadingIndicator action="Bundling Code ..." />
           )}
         </div>
       </div>

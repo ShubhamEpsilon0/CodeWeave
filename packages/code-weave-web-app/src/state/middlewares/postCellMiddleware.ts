@@ -5,7 +5,7 @@ import {
   addCell,
 } from "../slices/CellsSlice";
 
-import axios from "axios";
+import { saveCells } from "@/remote/APIs";
 
 export const postCellMiddleware = ({ getState }: { getState: () => any }) => {
   let timer: number;
@@ -24,13 +24,7 @@ export const postCellMiddleware = ({ getState }: { getState: () => any }) => {
         if (timer) {
           clearTimeout(timer);
         }
-        timer = setTimeout(
-          () =>
-            axios.post("/api/cells", {
-              cells: JSON.stringify(Object.values(cells)),
-            }),
-          500
-        );
+        timer = setTimeout(() => saveCells(Object.values(cells)), 500);
       } catch (err) {
         console.error("Failed to post cells", err);
       }

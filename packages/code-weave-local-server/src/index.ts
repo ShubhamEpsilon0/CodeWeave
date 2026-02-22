@@ -29,6 +29,11 @@ export const runServer = async (
 ) => {
   app.use(express.json());
 
+  app.use((req, res, next) => {
+    console.log(req.method, req.url);
+    next();
+  });
+
   app.use("/api", createCellsRouter(filepath));
 
   if (useProxy) {
@@ -42,4 +47,5 @@ export const runServer = async (
   }
   await listenAsync(app, port);
   console.log(`Code Weave Local Server is running on port ${port}`);
+  console.log(`Serving cells data from file: ${filepath}`);
 };

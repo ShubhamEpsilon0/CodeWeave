@@ -5,6 +5,7 @@ export const createCellsRouter = (filepath: string) => {
   const CellsRouter = Router();
 
   CellsRouter.get("/cells", async (req, res) => {
+    console.log(`Reading cells from file: ${filepath}`);
     try {
       const serializedCells = await fs.readFile(filepath, "utf-8");
       res.json({ cells: serializedCells });
